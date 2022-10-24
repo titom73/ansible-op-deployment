@@ -9,7 +9,7 @@ It supports deployment for the following platform:
 - `arm64` for raspberry Pi4
 
 
-## installation
+## Installation
 
 ```shell
 ansible-galaxy collection install titom73.op_deployment
