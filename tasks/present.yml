@@ -1,3 +1,4 @@
+---
 - name: Check if one-password is already installed
   ansible.builtin.stat:
     path: '{{ op_deployment_bin_path }}'

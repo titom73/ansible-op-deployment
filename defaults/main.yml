@@ -1,14 +1,31 @@
 ---
 # defaults file for one-password-deploy
+
+# Set present to configure, absent to remove (not yet supported)
 op_deployment_state: present
+
+# Force package update even if binary is present
 op_deployment_force_update: true
+
+# Set HW platform where to install binary
 op_deployment_platform: amd64
 
+# Package version to install
 op_deployment_version: 'v2.7.2'
+
+# One Password URL. Should not be changed !
 op_deployment_url: 'https://cache.agilebits.com/dist/1P/op2/pkg/{{ op_deployment_version }}/op_linux_amd64_{{ op_deployment_version }}.zip'
+# Build downloaded package name from URL
 op_deployment_package_name: "{{ op_deployment_url | basename }}"
 
+# Where to download package
 op_deplyment_tmp: '/tmp'
+
+# Name of the binary
 op_deployment_bin: 'op'
+
+# Installation path
 op_deployment_installation_path: '/usr/local/sbin/'
+
+# Full installation path
 op_deployment_bin_path: '{{ op_deployment_installation_path }}/{{ op_deployment_bin }}'
