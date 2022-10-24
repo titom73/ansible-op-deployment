@@ -1,0 +1,14 @@
+---
+# defaults file for one-password-deploy
+op_deployment_state: present
+op_deployment_force_update: true
+op_deployment_platform: amd64
+
+op_deployment_version: 'v2.7.2'
+op_deployment_url: 'https://cache.agilebits.com/dist/1P/op2/pkg/{{ op_deployment_version }}/op_linux_amd64_{{ op_deployment_version }}.zip'
+op_deployment_package_name: "{{ op_deployment_url | basename }}"
+
+op_deplyment_tmp: '/tmp'
+op_deployment_bin: 'op'
+op_deployment_installation_path: '/usr/local/sbin/'
+op_deployment_bin_path: '{{ op_deployment_installation_path }}/{{ op_deployment_bin }}'

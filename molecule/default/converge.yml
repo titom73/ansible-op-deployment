@@ -1,0 +1,29 @@
+---
+- name: Converge - Install One Password CLI manager
+  hosts: all
+  gather_facts: true
+  become: true
+
+  pre_tasks:
+    - name: Update apt cache.
+      apt: update_cache=yes cache_valid_time=600
+      when: ansible_os_family == 'Debian'
+
+    - name: Install wget
+      ansible.builtin.package:
+        name: wget
+        state: present
+
+    - name: Install unzip
+      ansible.builtin.package:
+        name: unzip
+        state: present
+
+  tasks:
+
+    - name: Install ONE Password CLI
+      import_role:
+        name: 'titom73.op_deployment'
+      vars:
+        op_deployment_platform: 'amd64'
+        op_deployment_version: 'v2.7.1'

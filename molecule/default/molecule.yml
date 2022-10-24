@@ -1,0 +1,28 @@
+---
+role_name_check: 1
+dependency:
+  name: galaxy
+driver:
+  name: docker
+platforms:
+  - name: instance
+    image: "titom73/${MOLECULE_DISTRO:-ubuntu}:latest"
+    command: ${MOLECULE_DOCKER_COMMAND:-""}
+    tmpfs:
+      - /run
+      - /tmp
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    privileged: true
+    pre_build_image: true
+provisioner:
+  name: ansible
+  config_options:
+    defaults:
+      remote_tmp: /tmp/
+  inventory:
+    group_vars:
+      all:
+        ansible_user: root
+  playbooks:
+    converge: ${MOLECULE_PLAYBOOK:-converge.yml}

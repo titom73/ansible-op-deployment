@@ -1,0 +1,7 @@
+---
+# tasks file for one-password-deploy
+- name: Load op_deplyment vars for specific platform
+  include_vars: "{{ op_deployment_platform }}.yml"
+
+- name: 'Load op_deployment action based on {{op_deployment_state}}'
+  include_tasks: "./{{ op_deployment_state }}.yml"

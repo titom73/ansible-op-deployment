@@ -1,0 +1,29 @@
+- name: Check if one-password is already installed
+  ansible.builtin.stat:
+    path: '{{ op_deployment_bin_path }}'
+  register: op_exists
+  when: op_deployment_force_update is false
+
+- name: 'Download One Password CLI in version {{op_deployment_version}}'
+  ansible.builtin.shell:
+    cmd: |
+      cd {{ op_deplyment_tmp }}
+      wget {{ op_deployment_url }}
+  when: (op_exists.stat.exists is false) or (op_deployment_force_update is true)
+
+- name: Install op binary
+  ansible.builtin.shell:
+    cmd: |
+      cd {{ op_deplyment_tmp }}
+      unzip {{ op_deployment_package_name }}
+      cp {{ op_deployment_bin }} {{ op_deployment_bin_path }}
+      chmod +x {{ op_deployment_bin_path }}
+  when: (op_exists.stat.exists is false) or (op_deployment_force_update is true)
+
+- name: Cleanup folder
+  ansible.builtin.shell:
+    cmd: |
+      cd {{ op_deplyment_tmp }}
+      rm -rf {{ op_deployment_package_name }}
+      rm -f {{ op_deployment_bin }}*
+  when: (op_exists.stat.exists is false) or (op_deployment_force_update is true)
